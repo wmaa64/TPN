@@ -98,7 +98,7 @@ const NavBar = () => {
             labelEn: "DashBoard",
             labelAr: "لوحة المعلومات",
             icon: LayoutDashboard,
-            roleIDs: [1,2,3,9, 10, 11],
+            roleIDs: [1,2,3,5, 9, 10, 11],
         },
 
 
@@ -113,7 +113,7 @@ const NavBar = () => {
             labelEn: "Prescribe Order",
             labelAr: "طلب وصفة",
             icon: CalendarDays,
-            roleIDs: [1,3, 10, 11],
+            roleIDs: [1,2, 5, 10, 11],
         },
 
         // -------------------------------------------------
@@ -126,7 +126,7 @@ const NavBar = () => {
             labelEn: "Queries",
             labelAr: "الاستعلامات",
             icon: BarChart3,
-            roleIDs: [1,2,3,9, 10, 11],
+            roleIDs: [1,2,5,9, 10, 11],
 
             children: [
                 {
@@ -176,7 +176,7 @@ const NavBar = () => {
                     labelEn: "Users",
                     labelAr: "المستخدمين",
                     icon: UserCog,
-                    roleIDs: [1],
+                    roleIDs: [1, 5],
                 },
 
                             {
@@ -184,7 +184,7 @@ const NavBar = () => {
                     labelEn: "Companies",
                     labelAr: "الشركات",
                     icon: Building,
-                    roleIDs: [1],
+                    roleIDs: [1, 5],
                 },
 
 
