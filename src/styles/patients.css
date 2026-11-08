@@ -1,0 +1,679 @@
+      /* ====================================================
+          PAGE-SPECIFIC STYLES
+          Names are prefixed with subject-
+          to avoid conflicts with globals.css.
+      ==================================================== */
+
+        /* ==================================================
+           PAGE
+        ================================================== */
+
+        .subject-page {
+          width: 100%;
+          min-height: 70vh;
+          padding: 5px 10px;
+          background: #f5f7fa;
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .subject-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+        }
+
+
+        .subject-title {
+          margin: 0;
+          color: #1f2937;
+          font-size: 25px;
+          font-weight: 700;
+        }
+
+
+        .subject-subtitle {
+          margin: 6px 0 0;
+          color: #6b7280;
+          font-size: 15px;
+        }
+
+
+        .subject-add-button {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 11px 18px;
+          border: none;
+          border-radius: 7px;
+          background: #2563eb;
+          color: white;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+
+        .subject-add-button:hover {
+          background: #1d4ed8;
+        }
+
+
+        .subject-add-icon {
+          font-size: 20px;
+          line-height: 1;
+        }
+
+
+        /* ==================================================
+           TOOLBAR
+        ================================================== */
+
+        .subject-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          margin-bottom: 18px;
+        }
+
+
+        .subject-search {
+          display: flex;
+          position: relative;
+          width: 500px;
+          max-width: 100%;
+          gap: 5px;
+        }
+
+
+        .subject-search input {
+          width: 100%;
+          height: 44px;
+          padding: 0 15px 0 42px;
+          border: 1px solid #d1d5db;
+          border-radius: 7px;
+          outline: none;
+          background: white;
+          color: #1f2937;
+          font-size: 14px;
+        }
+
+
+        .subject-search input:focus {
+          border-color: #2563eb;
+          box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .subject-search button {
+          background-color: blue;
+          color: white;
+          width: 120px;
+          border-radius: 5px;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        .subject-search-icon {
+          position: absolute;
+          top: 50%;
+          left: 14px;
+          z-index: 1;
+          transform: translateY(-50%);
+          font-size: 16px;
+        }
+
+
+        .subject-count {
+          color: #6b7280;
+          font-size: 14px;
+          white-space: nowrap;
+        }
+
+
+        /* ==================================================
+           ERROR
+        ================================================== */
+
+        .subject-error {
+          margin-bottom: 18px;
+          padding: 12px 15px;
+          border: 1px solid #fecaca;
+          border-radius: 7px;
+          background: #fef2f2;
+          color: #b91c1c;
+        }
+
+
+        /* ==================================================
+           LOADING
+        ================================================== */
+
+        .subject-loading {
+          padding: 50px;
+          border: 1px solid #e5e7eb;
+          border-radius: 10px;
+          background: white;
+          color: #6b7280;
+          text-align: center;
+        }
+
+
+        /* ==================================================
+           TABLE
+        ================================================== */
+
+        .subject-table-wrapper {
+          width: 100%;
+          overflow-x: auto;
+          border: 1px solid #e5e7eb;
+          border-radius: 10px;
+          background: white;
+        }
+
+
+        .subject-table {
+          width: 100%;
+          min-width: 1000px;
+          border-collapse: collapse;
+        }
+
+
+        .subject-table th {
+          padding: 5px 10px;
+          border-bottom: 1px solid #e5e7eb;
+          background: #f9fafb;
+          color: #4b5563;
+          font-size: 13px;
+          font-weight: 600;
+          text-align: left;
+          white-space: nowrap;
+        }
+
+
+        .subject-table td {
+          padding: 5px 10px;
+          border-bottom: 1px solid #f0f0f0;
+          color: #374151;
+          font-size: 13px;
+          white-space: nowrap;
+        }
+
+
+        .subject-table tbody tr:hover {
+          background: #f9fafb;
+        }
+
+
+        .subject-table tbody tr:last-child td {
+          border-bottom: none;
+        }
+
+
+        .subject-name {
+          color: #111827;
+          font-weight: 600;
+        }
+
+
+        .subject-empty {
+          padding: 50px !important;
+          color: #9ca3af !important;
+          text-align: center;
+        }
+
+
+        /* ==================================================
+           ACTION BUTTONS
+        ================================================== */
+
+        .subject-actions {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+        }
+
+        
+
+        .subject-edit-button,
+        .subject-delete-button,
+        .subject-coupon-button {
+          padding: 7px 12px;
+          border: none;
+          border-radius: 5px;
+          font-size: 13px;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+
+        .subject-coupon-button {
+          background: #fef2f2;
+          color: orange;
+        }
+
+        .subject-coupon-button:hover {
+          background: #dbeafe;
+        }
+
+        .subject-edit-button {
+          background: #eff6ff;
+          color: #2563eb;
+        }
+
+
+        .subject-edit-button:hover {
+          background: #dbeafe;
+        }
+
+
+        .subject-delete-button {
+          background: #fef2f2;
+          color: #dc2626;
+        }
+
+
+        .subject-delete-button:hover {
+          background: #fee2e2;
+        }
+
+
+        /* ==================================================
+           MODAL OVERLAY
+        ================================================== */
+
+        .subject-modal-overlay {
+          position: fixed;
+          z-index: 9999;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          background: rgba(0, 0, 0, 0.5);
+        }
+
+
+        /* ==================================================
+           MODAL
+        ================================================== */
+
+        .subject-modal {
+          width: 100%;
+          max-width: 680px;
+          max-height: 90vh;
+          overflow-y: auto;
+          border-radius: 12px;
+          background: white;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* ==================================================
+           MODAL HEADER
+        ================================================== */
+
+        .subject-modal-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 20px;
+          padding: 22px 25px;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .subject-modal-header h2 {
+          margin: 0;
+          color: #1f2937;
+          font-size: 22px;
+          font-weight: 700;
+        }
+
+
+        .subject-modal-header p {
+          margin: 5px 0 0;
+          color: #6b7280;
+          font-size: 13px;
+        }
+
+
+        .subject-close-button {
+          width: 32px;
+          height: 32px;
+          flex-shrink: 0;
+          border: none;
+          border-radius: 50%;
+          background: #f3f4f6;
+          color: #4b5563;
+          font-size: 24px;
+          line-height: 1;
+          cursor: pointer;
+        }
+
+
+        .subject-close-button:hover {
+          background: #e5e7eb;
+        }
+
+
+        /* ==================================================
+           FORM
+        ================================================== */
+
+        .subject-form {
+          padding: 25px;
+        }
+
+
+        .subject-form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+        }
+
+
+        .subject-form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+        }
+
+
+        .subject-full-width {
+          grid-column: 1 / -1;
+        }
+
+
+        .subject-form-group label {
+          color: #374151;
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+
+        .subject-form-group input,
+        .subject-form-group textarea {
+          width: 100%;
+          box-sizing: border-box;
+          padding: 11px 12px;
+          border: 1px solid #d1d5db;
+          border-radius: 6px;
+          outline: none;
+          background: white;
+          color: #1f2937;
+          font-family: inherit;
+          font-size: 14px;
+        }
+
+
+        .subject-form-group input {
+          height: 42px;
+        }
+
+
+        .subject-form-group input:focus,
+        .subject-form-group textarea:focus {
+          border-color: #2563eb;
+          box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+        }
+
+
+        .subject-form-group textarea {
+          min-height: 90px;
+          resize: vertical;
+        }
+
+
+        /* ==================================================
+           FORM ACTIONS
+        ================================================== */
+
+        .subject-form-actions {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 10px;
+          margin-top: 25px;
+          padding-top: 20px;
+          border-top: 1px solid #e5e7eb;
+        }
+
+
+        .subject-cancel-button,
+        .subject-save-button {
+          min-width: 120px;
+          padding: 10px 18px;
+          border: none;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+
+        .subject-cancel-button {
+          background: #f3f4f6;
+          color: #374151;
+        }
+
+
+        .subject-cancel-button:hover {
+          background: #e5e7eb;
+        }
+
+
+        .subject-save-button {
+          background: #2563eb;
+          color: white;
+        }
+
+
+        .subject-save-button:hover {
+          background: #1d4ed8;
+        }
+
+
+        .subject-cancel-button:disabled,
+        .subject-save-button:disabled,
+        .subject-close-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+
+/* =========================================================
+   COUPON BUTTON
+========================================================= */
+
+.patients-coupon-button {
+  border: none;
+  border-radius: 5px;
+  padding: 7px 11px;
+  background: #f39c12;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.patients-coupon-button:hover {
+  background: #d68910;
+}
+
+.patients-coupon-button:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================================================
+   COUPON PATIENT INFORMATION
+========================================================= */
+
+.coupon-patient-info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin: 10px ;
+  padding: 15px;
+  background: #f8f9fb;
+  border: 1px solid #e1e5ea;
+  border-radius: 6px;
+}
+
+.coupon-patient-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.coupon-patient-info span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.coupon-patient-info strong {
+  font-size: 14px;
+  color: #2c3e50;
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   COUPON FORM
+========================================================= */
+
+.coupon-patient-info + .patients-form {
+  margin-top: 0;
+}
+
+
+/* =========================================================
+   FULL-WIDTH COUPON FIELD
+========================================================= */
+
+.patients-full-width {
+  grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   COUPON MODAL RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .coupon-patient-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .patients-full-width {
+    grid-column: auto;
+  }
+
+}
+
+
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 768px) {
+
+          .subject-page {
+            padding: 5px 10px;
+          }
+
+
+          .subject-header {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+
+
+          .subject-add-button {
+            width: 100%;
+            justify-content: center;
+          }
+
+
+          .subject-toolbar {
+            align-items: stretch;
+            flex-direction: column;
+          }
+
+
+          .subject-search {
+            width: 100%;
+          }
+
+
+          .subject-count {
+            text-align: right;
+          }
+
+
+          .subject-modal-overlay {
+            padding: 10px;
+          }
+
+
+          .subject-modal {
+            max-height: 95vh;
+          }
+
+
+          .subject-form {
+            padding: 18px;
+          }
+
+
+          .subject-form-grid {
+            grid-template-columns: 1fr;
+          }
+
+
+          .subject-full-width {
+            grid-column: auto;
+          }
+
+
+          .subject-form-actions {
+            flex-direction: column-reverse;
+          }
+
+
+          .subject-cancel-button,
+          .subject-save-button {
+            width: 100%;
+          }
+
+        }
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+  .patients-coupon-button {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+}

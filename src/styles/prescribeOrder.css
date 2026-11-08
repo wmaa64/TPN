@@ -1,0 +1,264 @@
+.prescribe-order-page { color: #1f2937; }
+.prescribe-order-page .subject-subtitle { margin-top: 6px; }
+.prescribe-order-page .subject-add-button { border: 0; }
+.prescribe-order-page .subject-search { width: min(650px, 100%); }
+.prescribe-order-page .subject-search input { padding-left: 42px; }
+.prescribe-order-page .subject-table { min-width: 800px; }
+.prescribe-order-page .subject-actions { flex-wrap: wrap; }
+.prescribe-order-page .subject-coupon-button { background: #087f8c; }
+.prescribe-order-page .subject-coupon-button:hover { background: #066c77; }
+.prescribe-order-search-count { color: #6b7280; font-size: 14px; }
+
+.subject-modal.prescribe-order-modal {
+  width: min(1100px, 100%);
+  max-width: 1100px;
+}
+.prescribe-order-modal .subject-form { padding: 20px 25px 25px; }
+.prescribe-order-form-section {
+  margin-bottom: 22px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.prescribe-order-form-section h3 {
+  margin: 0 0 15px;
+  color: #1f2937;
+  font-size: 16px;
+}
+.prescribe-order-form-section .subject-form-grid { gap: 14px; }
+.prescribe-order-form-section .subject-form-group input,
+.prescribe-order-options select {
+  height: 40px;
+  padding: 8px 10px;
+  border-radius: 7px;
+}
+.prescribe-order-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 20px;
+}
+.prescribe-order-options > label:not(.prescribe-order-check) {
+  display: grid;
+  min-width: 145px;
+  gap: 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+.prescribe-order-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  color: #374151;
+  font-size: 13px;
+}
+.prescribe-order-check input { accent-color: #2563eb; }
+.prescribe-order-patient-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 18px;
+}
+.prescribe-order-patient-options > label:not(.prescribe-order-check) {
+  display: grid;
+  gap: 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+.prescribe-order-patient-options select,
+.prescribe-order-company-field select {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: white;
+  color: #1f2937;
+  font: inherit;
+}
+.prescribe-order-company-search { display: grid; gap: 9px; }
+.prescribe-order-company-search-row { display: flex; gap: 8px; }
+.prescribe-order-company-search-row input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: #fff;
+  color: #1f2937;
+  font: inherit;
+}
+.prescribe-order-company-search-row input:focus {
+  border-color: #2563eb;
+  outline: 2px solid rgb(37 99 235 / 15%);
+}
+.prescribe-order-company-search-row > button,
+.prescribe-order-selected-company > button {
+  flex: 0 0 auto;
+  border: 1px solid #087f8c;
+  border-radius: 6px;
+  padding: 8px 13px;
+  background: #087f8c;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.prescribe-order-company-results {
+  display: grid;
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af #f3f4f6;
+  padding: 2px;
+}
+.prescribe-order-company-result {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  background: #fff;
+  color: #1f2937;
+  text-align: start;
+  font: inherit;
+  cursor: pointer;
+}
+.prescribe-order-company-result:hover,
+.prescribe-order-company-result.selected { border-color: #087f8c; background: #f0fdfa; }
+.prescribe-order-company-message {
+  padding: 8px 2px;
+  color: #6b7280;
+  font-size: 13px;
+}
+.prescribe-order-selected-company {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid #99f6e4;
+  border-radius: 7px;
+  background: #f0fdfa;
+  color: #115e59;
+  font-size: 13px;
+}
+.prescribe-order-selected-company > button { padding: 5px 9px; }
+.prescribe-order-patient-options .prescribe-order-check { min-height: 40px; }
+.prescribe-order-company-error { color: #b91c1c; }
+.prescribe-order-result-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.prescribe-order-result-heading button,
+.prescribe-order-print-button {
+  border: 1px solid #087f8c;
+  border-radius: 6px;
+  padding: 9px 14px;
+  background: #087f8c;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.prescribe-order-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.prescribe-order-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  background: #f9fafb;
+  font-size: 13px;
+}
+.prescribe-order-result span { color: #6b7280; }
+.prescribe-order-result strong { color: #1f2937; white-space: nowrap; }
+.prescribe-order-note,
+.prescribe-order-osmolarity { margin: 13px 0 0; color: #65788c; font-size: 13px; }
+.prescribe-order-warning {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 13px;
+}
+.prescribe-order-label {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px dashed #087f8c;
+  border-radius: 8px;
+  background: #fff;
+}
+.prescribe-order-label-heading h3 { margin: 0; }
+.prescribe-order-label-heading p { margin: 5px 0 14px; color: #6b7280; font-size: 13px; }
+.prescribe-order-local-note {
+  margin: 0 0 14px;
+  color: #6b7280;
+  font-size: 12px;
+}
+.prescribe-order-preview-meta { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-bottom: 16px; color: #4b5563; font-size: 14px; }
+.prescribe-order-preview-modal .subject-form-actions { margin-top: 20px; }
+
+@media (max-width: 760px) {
+  .prescribe-order-page .subject-header { align-items: flex-start; flex-direction: column; }
+  .prescribe-order-page .subject-toolbar { align-items: stretch; flex-direction: column; }
+  .prescribe-order-page .subject-search { width: 100%; }
+  .prescribe-order-results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .subject-modal.prescribe-order-modal { max-height: 94vh; }
+  .prescribe-order-modal .subject-form { padding: 16px; }
+}
+@media (max-width: 520px) {
+  .prescribe-order-results { grid-template-columns: 1fr; }
+  .prescribe-order-form-section .subject-form-grid { grid-template-columns: 1fr; }
+  .prescribe-order-patient-options { grid-template-columns: 1fr; }
+  .prescribe-order-company-field { grid-template-columns: 1fr !important; }
+  .prescribe-order-modal .subject-modal-header { padding: 16px; }
+  .prescribe-order-modal .subject-form-actions { align-items: stretch; flex-direction: column; }
+}
+@media print {
+  body:has(.prescribe-order-modal) * { visibility: hidden; }
+  .subject-modal-overlay:has(.prescribe-order-modal),
+  .subject-modal-overlay:has(.prescribe-order-modal) .prescribe-order-modal,
+  .subject-modal-overlay:has(.prescribe-order-modal) .prescribe-order-modal * { visibility: visible; }
+  .subject-modal-overlay:has(.prescribe-order-modal) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    background: white;
+  }
+  .prescribe-order-modal {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .prescribe-order-modal .subject-modal-header button,
+  .prescribe-order-modal .subject-form-actions { display: none !important; }
+  .prescribe-order-modal form { display: block !important; }
+  .prescribe-order-modal form > .prescribe-order-form-section:not(:has(.prescribe-order-results)),
+  .prescribe-order-modal form > .prescribe-order-local-note { display: none !important; }
+  .prescribe-order-preview-modal .subject-form { display: block !important; padding: 15px !important; }
+  .prescribe-order-preview-modal .prescribe-order-results { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

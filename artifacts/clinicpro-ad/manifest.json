@@ -1,0 +1,114 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 15,
+  "scenes": [
+    {
+      "image": "appointments.jpg",
+      "seconds": 2,
+      "headline": "عيادتك بتخسر فلوس؟",
+      "sub": "ومش عارف الفلوس بتروح فين؟",
+      "tag": "المواعيد",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-01.png"
+    },
+    {
+      "image": "patients.jpg",
+      "seconds": 1.5,
+      "headline": "بيانات مرضاك",
+      "sub": "ومواعيدهم في مكان واحد",
+      "tag": "المرضى",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-02.png"
+    },
+    {
+      "image": "appointments.jpg",
+      "seconds": 1.1,
+      "headline": "اعرف مين حضر ومين لأ",
+      "sub": "تابع حالة كل موعد بسرعة",
+      "tag": "متابعة المواعيد",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-03.png"
+    },
+    {
+      "image": "sessiondue.jpg",
+      "seconds": 1.1,
+      "headline": "كل جلسة حسابها واضح",
+      "sub": "الخدمات والمدفوعات قدامك",
+      "tag": "الجلسات",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-04.png"
+    },
+    {
+      "image": "offersubscription.jpg",
+      "seconds": 2.6,
+      "headline": "٦٠٠٠ نبضة بـ ٢٤٠٠ جنيه",
+      "sub": "استهلكت ٣٠٠ • متبقي ٥٧٠٠",
+      "tag": "العروض والاشتراكات",
+      "hero": true,
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-05.png"
+    },
+    {
+      "image": "doctorRevenue.jpg",
+      "seconds": 1.3,
+      "headline": "إيراد كل طبيب في ثانية",
+      "sub": "تقارير واضحة خلال أي فترة",
+      "tag": "إيرادات الأطباء",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-06.png"
+    },
+    {
+      "image": "store.jpg",
+      "seconds": 1.1,
+      "headline": "ومخزونك تحت السيطرة",
+      "sub": "تابع الرصيد وحركة المستلزمات",
+      "tag": "إدارة المخزون",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-07.png"
+    },
+    {
+      "image": "dashboard.jpg",
+      "seconds": 2.1,
+      "headline": "عيادتك كلها",
+      "sub": "في نظام واحد",
+      "tag": "ClinicPro",
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-08.png"
+    },
+    {
+      "image": null,
+      "seconds": 2.2,
+      "headline": "جرّب ClinicPro مجانًا",
+      "sub": "٣ أيام • الرابط في الوصف ↓",
+      "tag": "ابدأ الآن",
+      "cta": true,
+      "frame": "F:\\reactprojects\\ShinySkinClinic\\artifacts\\clinicpro-ad\\scene-09.png"
+    }
+  ],
+  "cues": [
+    [
+      0,
+      2.4,
+      "عيادتك بتخسر فلوس ومش عارف ليه؟"
+    ],
+    [
+      2.4,
+      5.7,
+      "مواعيد ومرضى وجلسات، كلهم في مكان واحد."
+    ],
+    [
+      5.7,
+      8.3,
+      "٦٠٠٠ نبضة، ٣٠٠ مستخدمة، ٥٧٠٠ باقي."
+    ],
+    [
+      8.3,
+      10.7,
+      "إيراد كل طبيب ومخزونك تحت السيطرة."
+    ],
+    [
+      10.7,
+      12.8,
+      "ClinicPro، عيادتك كلها في نظام واحد."
+    ],
+    [
+      12.8,
+      15,
+      "جرّب مجانًا تلات أيام، الرابط في الوصف."
+    ]
+  ]
+}
