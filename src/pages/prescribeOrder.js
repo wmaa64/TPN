@@ -29,7 +29,11 @@ const emptyForm = {
 };
 
 const num = (value) => Number.parseFloat(value) || 0;
+
 const formulaA = (concentration, amount, required) => concentration ? required * amount / concentration : 0;
+
+//const formulaB = (concentration, amount, required) => concentration ? required *  concentration / amount : 0;
+
 const fmt = (value) => Number.isFinite(value) ? value.toFixed(2) : "0.00";
 
 const normalizeCompanySearch = (value) => String(value || "")
@@ -76,7 +80,8 @@ function calculateOrder(form, options) {
   const totalRequired = (totalVolume - milk - drugs - (options.check3 ? lipid : 0)) * (options.fourLine ? 1.2 : 1);
   let sg25 = glucosePerDay * patientWeight * 100 / 25;
   let tracesForSubtotal = traces;
-  let subtotal = sg25 + protein + nacl + magnesium + calcium + kcl + tracesForSubtotal + vitamins + glucophos + (options.check3 ? 0 : lipid);
+  let subtotal = sg25 + protein + nacl + magnesium + calcium + kcl + tracesForSubtotal + vitamins + glucophos + 
+                  (options.check3 ? 0 : lipid);
   let remaining = totalRequired - subtotal;
   let excess = Math.max(0, -remaining);
   let water = Math.max(0, remaining);
@@ -98,6 +103,7 @@ function calculateOrder(form, options) {
       requiredPercent = totalRequired > 0 ? glucosePerDay * patientWeight * 100 / totalRequired : 0;
     }
   }
+
   const glucoseRate = glucosePerDay * 1000 / 1440;
   const heparin = finalTotal ? heparinInput * finalTotal * 10 / 5000 : 0;
 
@@ -110,9 +116,10 @@ function calculateOrder(form, options) {
   const labelCa = num(form.d_Ca) * labelMultiplier;
   const labelMg = num(form.d_Mg) * labelMultiplier;
   const labelVolume = Math.max(0, (totalVolume - milk - drugs - (options.check3 ? lipid : 0)) * (options.fourLine ? 1.2 : 1) + excess * (options.fourLine && !options.check3 ? 2 : 1));
-  const osmolarity = labelVolume > 0
-    ? ((labelProteins * 1000 / labelVolume) * 10) + ((labelGlucose * 1000 / labelVolume) * 5) + ((labelNa * 1000 / labelVolume) * 2) + ((labelK * 1000 / labelVolume) * 2)
-    : 0;
+  const osmolarity = labelVolume > 0 ?
+      ((labelProteins * 1000 / labelVolume) * 10) + ((labelGlucose * 1000 / labelVolume) * 5) + 
+      ((labelNa * 1000 / labelVolume) * 2) + ((labelK * 1000 / labelVolume) * 2)
+      : 0;
 
   return {
     c_sg25: sg25, 
@@ -137,12 +144,19 @@ function calculateOrder(form, options) {
     glucosePerDay, 
     glucoseRate, 
     label: {
-      L_gluc_gmday: labelGlucose, L_proteins: labelProteins, L_lipids: labelLipids,
-      L_Na: labelNa, L_k: labelK, L_Ca: labelCa, L_Mg: labelMg,
+      L_gluc_gmday: labelGlucose, 
+      L_proteins: labelProteins, 
+      L_lipids: labelLipids,
+      L_Na: labelNa, 
+      L_k: labelK, 
+      L_Ca: labelCa, 
+      L_Mg: labelMg,
       L_vitamens: num(form.d_vitamens) ? "Positive" : "Negative",
       L_Traces_element: num(form.d_Traces_element) ? "Positive" : "Negative",
       L_Glucophos: glucosePhosphateSodium ? "Positive" : "Negative",
-      L_heparin: heparinInput ? "Positive" : "Negative", L_total_volume: labelVolume, L_excess: excess,
+      L_heparin: heparinInput ? "Positive" : "Negative", 
+      L_total_volume: labelVolume, 
+      L_excess: excess,
     },
     warnings: sodiumToSupply < 0 ? ["Glucophos exceeds the available sodium; NaCl was set to zero."] : [],
   };

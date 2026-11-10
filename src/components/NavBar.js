@@ -116,6 +116,16 @@ const NavBar = () => {
             roleIDs: [1,2, 5, 10, 11],
         },
 
+        {
+            type: "link",
+            name: "perfusionSheet",
+            href: "/PerfusionSheet",
+            labelEn: "Perfusion Sheet",
+            labelAr: "ورقة التحضير",
+            icon: ClipboardList,
+            roleIDs: [1,2, 5, 10, 11],
+        },
+
         // -------------------------------------------------
         // QUERIES
         // -------------------------------------------------
@@ -130,19 +140,19 @@ const NavBar = () => {
 
             children: [
                 {
-                    href: "/revenue",
-                    labelEn: "Revenue for Period",
-                    labelAr: "إيرادات عن فترة",
-                    icon: BarChart3,
-                    roleIDs: [1,9, 10, 11],
+                    href: "/volumesPerDay",
+                    labelEn: "Volumes Per Day",
+                    labelAr: "إجمالي الأحجام اليومية",
+                    icon: ClipboardList,
+                    roleIDs: [1,2,5,9,10,11],
                 },
 
                 {
-                    href: "/doctorRevenue",
-                    labelEn: "Doctor Revenue",
-                    labelAr: "إيرادات الطبيب",
-                    icon: Percent,
-                    roleIDs: [1,9, 10, 11],
+                    href: "/PerfusionsPerCompaniesPerDay",
+                    labelEn: "Perfusions per Company per Day",
+                    labelAr: "التحضير يومياً شركات",
+                    icon: ClipboardList,
+                    roleIDs: [1,2,5,9,10,11],
                 },
 
             ]

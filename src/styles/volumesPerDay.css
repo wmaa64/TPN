@@ -1,0 +1,41 @@
+.volumes-per-day-page .subject-header { margin-bottom: 18px; }
+.volumes-per-day-panel {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  max-width: 680px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgb(15 23 42 / 5%);
+}
+.volumes-per-day-panel .subject-form-group { flex: 1; }
+.volumes-per-day-panel label { display: block; margin-bottom: 7px; color: #374151; font-size: 14px; font-weight: 600; }
+.volumes-per-day-panel input {
+  width: 100%;
+  height: 43px;
+  padding: 8px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #1f2937;
+  font: inherit;
+}
+.volumes-per-day-print-button {
+  min-height: 43px;
+  padding: 9px 18px;
+  border: 1px solid #087f8c;
+  border-radius: 7px;
+  background: #087f8c;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.volumes-per-day-print-button:hover { background: #066c77; }
+.volumes-per-day-print-button:disabled { opacity: .65; cursor: wait; }
+
+@media (max-width: 560px) {
+  .volumes-per-day-panel { align-items: stretch; flex-direction: column; }
+  .volumes-per-day-print-button { width: 100%; }
+}

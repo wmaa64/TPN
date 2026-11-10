@@ -1,0 +1,30 @@
+.perfusion-sheet-page .subject-header { margin-bottom: 16px; }
+.perfusion-sheet-page .subject-search { width: min(650px, 100%); }
+.perfusion-sheet-page .subject-search input { padding-left: 42px; }
+.perfusion-sheet-table { min-width: 850px; }
+.perfusion-sheet-print-button {
+  border: 1px solid #087f8c;
+  border-radius: 6px;
+  padding: 8px 14px;
+  background: #087f8c;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.perfusion-sheet-print-button:hover { background: #066c77; }
+.perfusion-sheet-print-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  direction: ltr;
+  white-space: nowrap;
+}
+.perfusion-sheet-print-button.label-print-button { background: #2563eb; border-color: #2563eb; }
+.perfusion-sheet-print-button.label-print-button:hover { background: #1d4ed8; }
+
+@media (max-width: 760px) {
+  .perfusion-sheet-page .subject-header { align-items: flex-start; }
+  .perfusion-sheet-page .subject-toolbar { align-items: stretch; flex-direction: column; }
+  .perfusion-sheet-page .subject-search { width: 100%; }
+  .perfusion-sheet-print-actions { flex-wrap: wrap; }
+}

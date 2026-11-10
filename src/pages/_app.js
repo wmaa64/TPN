@@ -7,6 +7,8 @@ import "../styles/login.css"
 import "../styles/patients.css";
 import "../styles/dashboard.css";
 import "../styles/prescribeOrder.css";
+import "../styles/perfusionSheet.css";
+import "../styles/volumesPerDay.css";
 
 
 import "../styles/index.scss";  /* main styles */
