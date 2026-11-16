@@ -487,6 +487,7 @@ const recordUserLogin = async (UserID, IPAddress, UserAgent) => {
 
   await transaction.begin(sql.ISOLATION_LEVEL.SERIALIZABLE);
   try {
+    const clientIPAddress = typeof IPAddress === "string" ? IPAddress.trim() : "";
     const licenseResult = await new sql.Request(transaction).query(`
       SELECT TOP (1) NoOfPCs
       FROM dbo.LicenseInfo WITH (UPDLOCK, HOLDLOCK)
@@ -497,6 +498,30 @@ const recordUserLogin = async (UserID, IPAddress, UserAgent) => {
       const error = new Error("No valid login limit is configured in LicenseInfo.");
       error.statusCode = 503;
       error.code = "LICENSE_NOT_CONFIGURED";
+      throw error;
+    }
+
+    if (!clientIPAddress || clientIPAddress.length > 50) {
+      const error = new Error("The login IP address could not be verified against the license.");
+      error.statusCode = 403;
+      error.code = "LICENSE_IP_NOT_ALLOWED";
+      throw error;
+    }
+
+    const ipResult = await new sql.Request(transaction)
+      .input("IPAddress", sql.NVarChar(50), clientIPAddress)
+      .query(`
+        SELECT TOP (1) LicenseIPSID
+        FROM dbo.LicenseInfoIPS WITH (HOLDLOCK)
+        WHERE LicenseID = 1
+          AND IPAddress IS NOT NULL
+          AND DATALENGTH(IPAddress) = DATALENGTH(@IPAddress)
+          AND IPAddress COLLATE Latin1_General_100_BIN2 = @IPAddress COLLATE Latin1_General_100_BIN2;
+      `);
+    if (!ipResult.recordset[0]) {
+      const error = new Error("This IP address is not allowed by the license.");
+      error.statusCode = 403;
+      error.code = "LICENSE_IP_NOT_ALLOWED";
       throw error;
     }
 
@@ -524,7 +549,7 @@ const recordUserLogin = async (UserID, IPAddress, UserAgent) => {
 
     const result = await new sql.Request(transaction)
       .input("UserID", sql.Int, Number(UserID))
-      .input("IPAddress", sql.NVarChar(50), IPAddress || null)
+      .input("IPAddress", sql.NVarChar(50), clientIPAddress)
       .input("UserAgent", sql.NVarChar(500), UserAgent || null)
       .query(`
         INSERT INTO dbo.UserLoginHistory
