@@ -519,7 +519,7 @@ const recordUserLogin = async (UserID, IPAddress, UserAgent) => {
           AND IPAddress COLLATE Latin1_General_100_BIN2 = @IPAddress COLLATE Latin1_General_100_BIN2;
       `);
     if (!ipResult.recordset[0]) {
-      const error = new Error("This IP address is not allowed by the license.");
+      const error = new Error(`IP address ${clientIPAddress} is not allowed by the license. Please send this address to your administrator to add it to the license allowlist.`);
       error.statusCode = 403;
       error.code = "LICENSE_IP_NOT_ALLOWED";
       throw error;
