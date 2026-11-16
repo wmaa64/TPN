@@ -483,37 +483,121 @@ const recordUserLogin = async (UserID, IPAddress, UserAgent) => {
   }
 
   const pool = await connectDB();
+  const transaction = new sql.Transaction(pool);
 
-  const result = await pool
-    .request()
-    .input("UserID", sql.Int, Number(UserID))
-    .input("IPAddress", sql.NVarChar(50), IPAddress || null)
-    .input("UserAgent", sql.NVarChar(500), UserAgent || null)
-    .query(`
-      INSERT INTO dbo.UserLoginHistory
-      (
-        UserID,
-        LoginDate,
-        IPAddress,
-        UserAgent
-      )
-      OUTPUT
-        INSERTED.LoginHistoryID,
-        INSERTED.UserID,
-        INSERTED.LoginDate,
-        INSERTED.LogoutDate,
-        INSERTED.IPAddress,
-        INSERTED.UserAgent
-      VALUES
-      (
-        @UserID,
-        GETDATE(),
-        @IPAddress,
-        @UserAgent
-      )
+  await transaction.begin(sql.ISOLATION_LEVEL.SERIALIZABLE);
+  try {
+    const licenseResult = await new sql.Request(transaction).query(`
+      SELECT TOP (1) NoOfPCs
+      FROM dbo.LicenseInfo WITH (UPDLOCK, HOLDLOCK)
+      WHERE LicenseID = 1;
+    `);
+    const licensedSessions = Number(licenseResult.recordset[0]?.NoOfPCs);
+    if (!Number.isInteger(licensedSessions) || licensedSessions < 1) {
+      const error = new Error("No valid login limit is configured in LicenseInfo.");
+      error.statusCode = 503;
+      error.code = "LICENSE_NOT_CONFIGURED";
+      throw error;
+    }
+
+    // Serialize admissions and expire sessions at exactly 24 hours after login.
+    await new sql.Request(transaction).query(`
+      UPDATE dbo.UserLoginHistory WITH (TABLOCKX, HOLDLOCK)
+      SET LogoutDate = DATEADD(day, 1, LoginDate)
+      WHERE LogoutDate IS NULL
+        AND LoginDate <= DATEADD(day, -1, GETDATE());
     `);
 
-  return result.recordset[0];
+    const activeResult = await new sql.Request(transaction).query(`
+      SELECT COUNT(*) AS ActiveSessions
+      FROM dbo.UserLoginHistory WITH (TABLOCKX, HOLDLOCK)
+      WHERE LogoutDate IS NULL
+        AND LoginDate > DATEADD(day, -1, GETDATE());
+    `);
+    const activeSessions = Number(activeResult.recordset[0]?.ActiveSessions || 0);
+    if (activeSessions >= licensedSessions) {
+      const error = new Error(`The license allows ${licensedSessions} active login${licensedSessions === 1 ? "" : "s"}; all are currently in use.`);
+      error.statusCode = 403;
+      error.code = "LICENSE_SESSION_LIMIT";
+      throw error;
+    }
+
+    const result = await new sql.Request(transaction)
+      .input("UserID", sql.Int, Number(UserID))
+      .input("IPAddress", sql.NVarChar(50), IPAddress || null)
+      .input("UserAgent", sql.NVarChar(500), UserAgent || null)
+      .query(`
+        INSERT INTO dbo.UserLoginHistory
+        (
+          UserID,
+          LoginDate,
+          IPAddress,
+          UserAgent
+        )
+        OUTPUT
+          INSERTED.LoginHistoryID,
+          INSERTED.UserID,
+          INSERTED.LoginDate,
+          INSERTED.LogoutDate,
+          DATEADD(day, 1, INSERTED.LoginDate) AS SessionExpiresAt,
+          INSERTED.IPAddress,
+          INSERTED.UserAgent
+        VALUES
+        (
+          @UserID,
+          GETDATE(),
+          @IPAddress,
+          @UserAgent
+        );
+      `);
+
+    await transaction.commit();
+    return result.recordset[0];
+  } catch (error) {
+    try {
+      await transaction.rollback();
+    } catch (rollbackError) {
+      console.error("Login session transaction rollback failed:", rollbackError);
+    }
+    throw error;
+  }
+};
+
+// =====================================================
+// CHECK / EXPIRE USER LOGIN SESSION
+// =====================================================
+
+const getActiveUserLoginSession = async (LoginHistoryID, UserID) => {
+  const parsedLoginHistoryID = Number(LoginHistoryID);
+  const parsedUserID = Number(UserID);
+  if (!Number.isInteger(parsedLoginHistoryID) || parsedLoginHistoryID <= 0 || !Number.isInteger(parsedUserID) || parsedUserID <= 0) {
+    return null;
+  }
+
+  const pool = await connectDB();
+  const result = await pool.request()
+    .input("LoginHistoryID", sql.Int, parsedLoginHistoryID)
+    .input("UserID", sql.Int, parsedUserID)
+    .query(`
+      UPDATE dbo.UserLoginHistory
+      SET LogoutDate = DATEADD(day, 1, LoginDate)
+      WHERE LoginHistoryID = @LoginHistoryID
+        AND UserID = @UserID
+        AND LogoutDate IS NULL
+        AND LoginDate <= DATEADD(day, -1, GETDATE());
+
+      SELECT
+        LoginHistoryID,
+        UserID,
+        LoginDate,
+        DATEADD(day, 1, LoginDate) AS SessionExpiresAt
+      FROM dbo.UserLoginHistory
+      WHERE LoginHistoryID = @LoginHistoryID
+        AND UserID = @UserID
+        AND LogoutDate IS NULL
+        AND LoginDate > DATEADD(day, -1, GETDATE());
+    `);
+  return result.recordsets?.[1]?.[0] || result.recordset?.[0] || null;
 };
 
 // =====================================================
@@ -567,4 +651,5 @@ export {
   deleteUser,
   recordUserLogin,
   recordUserLogout,
+  getActiveUserLoginSession,
 };

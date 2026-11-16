@@ -51,7 +51,8 @@ const today = () => {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 };
 
-function calculateOrder(form, options) {
+/* Function to calculate the prescription order */
+const calculateOrder = (form, options) => {
   const weight = num(form.a_pes_weight);
   const patientWeight = weight * (options.fourLine ? 1.2 : 1);
   const proteinPerKg = num(form.d_proteins);
@@ -162,7 +163,8 @@ function calculateOrder(form, options) {
   };
 }
 
-function calculateHeparinPreview(form) {
+/* Function to calculate the prescription order for heparin */
+const calculateHeparinPreview = (form) => {
   const weight = num(form.a_pes_weight);
   const protein = formulaA(10, 100, num(form.d_proteins) * weight);
   const lipid = formulaA(20, 100, num(form.d_lipids) * weight);
@@ -181,25 +183,48 @@ function calculateHeparinPreview(form) {
   const remaining = totalRequired - subtotal;
 
   return {
-    c_sg25: 0, c_sg10: 0, c_dest_steril_H2O: 0, c_Aminosteril10: protein,
-    c_Nacl: sodium, c_Mgso4: magnesium, c_CaGlucose: calcium, c_Kcl15: potassium,
-    c_Traces: traces, c_Intralipid: lipid, c_vitamens: vitamins, c_glucophos: glucophos,
-    c_heparin: heparin, c_total_required: totalRequired, c_subtotal: subtotal,
-    c_remain: remaining, c_excess: 0, c_final_total: 0, c_osmolarity: 0,
-    glucosePerDay: num(form.d_gluc_gmkgday), glucoseRate: num(form.d_gluc_mgkgmin),
+    c_sg25: 0, 
+    c_sg10: 0, 
+    c_dest_steril_H2O: 0, 
+    c_Aminosteril10: protein,
+    c_Nacl: sodium, 
+    c_Mgso4: magnesium, 
+    c_CaGlucose: calcium, 
+    c_Kcl15: potassium,
+    c_Traces: traces, 
+    c_Intralipid: lipid, 
+    c_vitamens: vitamins, 
+    c_glucophos: glucophos,
+    c_heparin: heparin, 
+    c_total_required: totalRequired, 
+    c_subtotal: subtotal,
+    c_remain: remaining, 
+    c_excess: 0, 
+    c_final_total: 0, 
+    c_osmolarity: 0,
+    glucosePerDay: num(form.d_gluc_gmkgday), 
+    glucoseRate: num(form.d_gluc_mgkgmin),
     label: {
-      L_gluc_gmday: 0, L_proteins: 0, L_lipids: 0, L_Na: 0, L_k: 0, L_Ca: 0, L_Mg: 0,
+      L_gluc_gmday: 0, 
+      L_proteins: 0, 
+      L_lipids: 0, 
+      L_Na: 0, 
+      L_k: 0, 
+      L_Ca: 0, 
+      L_Mg: 0,
       L_vitamens: num(form.d_vitamens) ? "Positive" : "Negative",
       L_Traces_element: num(form.d_Traces_element) ? "Positive" : "Negative",
       L_Glucophos: num(form.d_Glucophos) ? "Positive" : "Negative",
       L_heparin: num(form.d_heparin) ? "Positive" : "Negative",
-      L_total_volume: 0, L_excess: 0,
+      L_total_volume: 0, 
+      L_excess: 0,
     },
     warnings: [],
   };
 }
 
-function orderFromDatabase(row, companies) {
+/* Function to convert a database row into a prescription order object */
+const orderFromDatabase = (row, companies) => {
   const company = companies.find((item) => String(item.COMP_CODE) === String(row.COMP_CODE));
   const form = {
     a_request_date: row.REQUEST_DATE ? String(row.REQUEST_DATE).slice(0, 10) : "",
@@ -226,6 +251,7 @@ function orderFromDatabase(row, companies) {
     d_heparin: row.D_HEPARIN ?? 0,
     d_total_volume: row.D_TOTAL_VOLUME ?? 0,
   };
+  
   const options = {
     protein: row.OPTION_R ? "R" : row.OPTION_H ? "H" : "N",
     lipid: row.OPTION_10 ? "10" : "20",
@@ -234,6 +260,7 @@ function orderFromDatabase(row, companies) {
     check3: Boolean(row.SP),
     glucoseMode: row.OPTION_P ? "P" : "C",
   };
+
   return {
     ...form,
     orderId: String(row.PRESCRIBE_ORDER_ID),
@@ -244,28 +271,43 @@ function orderFromDatabase(row, companies) {
   };
 }
 
+/* Main component for the Prescribe Order page */
 const PrescribeOrder = () => {
   const { i18n } = useTranslation();
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => setMounted(true), []);
+
   const isRTL = mounted && i18n.language === "ar";
+
   const t = (en, ar) => isRTL ? ar : en;
+
   const [orders, setOrders] = useState([]);
+
   const [companies, setCompanies] = useState([]);
   const [companySearch, setCompanySearch] = useState("");
   const [companyResults, setCompanyResults] = useState([]);
   const [companySearchDone, setCompanySearchDone] = useState(false);
   const [companyError, setCompanyError] = useState("");
+
   const [search, setSearch] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState("");
+
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [showLabel, setShowLabel] = useState(false);
   const [viewingOrder, setViewingOrder] = useState(null);
   const [form, setForm] = useState(emptyForm);
-  const [options, setOptions] = useState({ protein: "N", lipid: "20", sodium: "27", fourLine: false, check3: false, glucoseMode: "C" });
+  const [options, setOptions] = useState({ 
+    protein: "N", 
+    lipid: "20", 
+    sodium: "27", 
+    fourLine: false, 
+    check3: false, 
+    glucoseMode: "C" });
+    
   const [calculationOverride, setCalculationOverride] = useState(null);
 
   useEffect(() => {

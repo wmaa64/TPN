@@ -107,24 +107,19 @@ export default async function handler(req, res) {
 
     const UserAgent = req.headers["user-agent"] || null;
 
-    let loginHistoryID = null;
-
-    // History is useful for auditing, but its failure must never reject valid credentials.
-    try {
-      const loginHistory = await recordUserLogin( user.UserID, IPAddress,  UserAgent  );
-
-      loginHistoryID = loginHistory?.LoginHistoryID || null;
-
-    } catch (historyError) {
-      console.error("Failed to record user login history:", historyError);
-    }
+    // Login is admitted only if the license has an available active-session slot.
+    const loginHistory = await recordUserLogin(user.UserID, IPAddress, UserAgent);
 
 
     // =================================================
     // SUCCESS
     // =================================================
 
-    return res.status(200).json({ ...user,  LoginHistoryID: loginHistoryID,  });
+    return res.status(200).json({
+      ...user,
+      LoginHistoryID: loginHistory.LoginHistoryID,
+      SessionExpiresAt: loginHistory.SessionExpiresAt,
+    });
 
   }
 
@@ -135,9 +130,9 @@ export default async function handler(req, res) {
       error
     );
 
-    return res.status(500).json({
-      message: "Login failed",
-      error: error.message,
+    return res.status(error.statusCode || 500).json({
+      message: error.message || "Login failed",
+      code: error.code,
     });
 
   }

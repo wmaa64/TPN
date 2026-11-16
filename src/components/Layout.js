@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
     const { i18n } = useTranslation();
     const [mounted, setMounted] = useState(false);
  
-    const { userInfo } = useStateContext();
+    const { userInfo, sessionReady } = useStateContext();
 
     const router = useRouter();
 
@@ -25,15 +25,15 @@ const Layout = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if (!userInfo) {
-            router.push("/");
+        if (sessionReady && !userInfo && router.pathname !== "/login") {
+            router.replace("/login");
         }
-    }, [userInfo]);
+    }, [sessionReady, userInfo, router.pathname]);
 
     // The language detector reads browser preferences, which are unavailable
     // during SSR. Wait until hydration completes before rendering language-
     // dependent layout components (header, navigation, and page content).
-    if (!mounted) return null;
+    if (!mounted || !sessionReady) return null;
 
     
 return (
