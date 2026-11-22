@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 const number = (value) => Number(value) || 0;
 const isChecked = (value) => value === true || Number(value) === 1;
 const amount = (value) => number(value).toFixed(2);
+
 const escapeHtml = (value) => String(value ?? "")
   .replace(/&/g, "&amp;")
   .replace(/</g, "&lt;")
@@ -53,6 +54,10 @@ const reportHtml = (order) => {
     <tr class="${className}"><th>${escapeHtml(name)}</th><td>${escapeHtml(volume)}</td><td>${escapeHtml(grams)}</td><td>${showCheck ? check(Boolean(gir)) : escapeHtml(gir)}</td></tr>`;
   const check = (checked) => `<span class="check ${checked ? "checked" : ""}">${checked ? "✓" : ""}</span>`;
 
+  // اذا احتجت تخليهم محاذيين شمال
+  //${row("NaCl", amount(order.C_NACL), amount(order.L_NA), "", substance)}
+  //${row("K cl 15%", amount(order.C_KCL15), amount(order.L_K), "", "substance")}
+            
   return `<!doctype html>
   <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Perfusion Sheet - ${escapeHtml(order.PES_NAME)}</title>
@@ -66,7 +71,7 @@ const reportHtml = (order) => {
     .request-row{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:8px;margin:9px 0}
     .request-pair{display:grid;grid-template-columns:auto 1fr;gap:3px 8px;align-content:start;font-size:11px}
     .request-pair b{background:#d1d1d1;padding:3px 5px}.request-pair span{padding:3px 5px;font-weight:bold;font-size:13px}
-    .gir-head{grid-column:3;grid-row:1/3;text-align:center;font-weight:bold}
+    .gir-head{grid-column:3;grid-row:1/3;text-align:center;font-weight:bold;}.gir-table{width:100%;border-collapse:collapse;margin-top:3px}
     .gir-table,.patient-table,.sign-table,.nutrient-table{width:100%;border-collapse:collapse}
     th,td{border:1px solid #777;padding:4px;vertical-align:middle}
     .gir-table th,.gir-table td{height:19px;text-align:center}.patient-sign{display:grid;grid-template-columns:1.05fr .95fr;gap:8px;margin:7px 0}
@@ -124,8 +129,8 @@ const reportHtml = (order) => {
             ${row("Dist. steril H2O", amount(order.C_DESC_STERIL_H2O))}
             <tr class="section-row"><th colspan="4">${escapeHtml(proteinName)}</th></tr>
             ${row("Aminoven / Aminosteril", amount(order.C_AMINOSTERIL10), amount(order.L_PROTEINS))}
-            ${row("NaCl", amount(order.C_NACL), amount(order.L_NA), "", "substance")}
-            ${row("K cl 15%", amount(order.C_KCL15), amount(order.L_K), "", "substance")}
+            ${row("NaCl", amount(order.C_NACL), amount(order.L_NA), "")}
+            ${row("K cl 15%", amount(order.C_KCL15), amount(order.L_K), "")}
             ${row("Glycophos", amount(order.C_GLUCOPHOS))}
             ${row("Ca Gluconate", amount(order.C_CAGLUCOSE), amount(order.L_CA))}
             ${row("MgSo4", amount(order.C_MGSO4), amount(order.L_MG))}
