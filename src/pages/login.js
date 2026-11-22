@@ -116,7 +116,7 @@ const Login = () => {
 
             <div className="login-box">
 
-                <h1>Shiny Skin Clinic</h1>
+                <h1>Total Parenteral Nutrition Center</h1>
 
                 <p className="login-title">
                     Please login to continue

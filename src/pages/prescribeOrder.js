@@ -307,7 +307,7 @@ const PrescribeOrder = () => {
     fourLine: false, 
     check3: false, 
     glucoseMode: "C" });
-    
+
   const [calculationOverride, setCalculationOverride] = useState(null);
 
   useEffect(() => {
@@ -336,11 +336,15 @@ const PrescribeOrder = () => {
 
   const calculatedOrder = useMemo(() => calculateOrder(form, options), [form, options]);
   const calculation = calculationOverride || calculatedOrder;
+
   useEffect(() => setCalculationOverride(null), [form, options]);
+
   const selectedCompany = companies.find((company) => String(company.COMP_CODE) === String(form.a_comp_code));
+
   const searchOrders = async () => {
     const query = search.trim();
     setSearchError("");
+    
     if (!query) {
       setOrders([]);
       setHasSearched(false);
@@ -351,9 +355,13 @@ const PrescribeOrder = () => {
       setSearching(true);
       const response = await fetch(`/api/prescribeOrders?search=${encodeURIComponent(query)}`);
       const data = await response.json();
+
       if (!response.ok) throw new Error(data.message || "Failed to search prescribe orders.");
+
       setOrders(Array.isArray(data.orders) ? data.orders.map((order) => orderFromDatabase(order, companies)) : []);
+
       setHasSearched(true);
+      
     } catch (error) {
       setOrders([]);
       setHasSearched(true);
